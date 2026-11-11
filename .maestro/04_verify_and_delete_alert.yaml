@@ -1,0 +1,36 @@
+appId: ${APP_ID:-com.cryptoalert}
+---
+# Fluxo 4: Validação Cruzada do Alerta na Home e Exclusão do Alerta
+# Valida a atualização reativa do badge de alerta na tela inicial, expansão de detalhes e a exclusão com persistência.
+
+- launchApp
+
+# 1. Navega para a aba inicial List para checar a integração reativa
+- tapOn: "List"
+- assertVisible: "Cryptocurrencies"
+
+# 2. Localiza o card do Bitcoin e valida o badge de alerta criado anteriormente
+- assertVisible: "1 alert"
+
+# 3. Toca na badge para expandir o painel com os detalhes do alerta
+- tapOn: "1 alert"
+- assertVisible: "Above target"
+- assertVisible: "$70,000.00"
+
+# 4. Navega de volta para a aba de Alertas
+- tapOn: "Alerts"
+- assertVisible: "Price Alerts"
+- assertVisible: "Bitcoin"
+
+# 5. Exclui o alerta utilizando o rótulo de acessibilidade do botão de lixeira
+- tapOn:
+    label: "Delete alert"
+
+# 6. Valida que o alerta foi removido (exibindo o estado vazio)
+- assertVisible: "No alerts yet"
+- assertVisible: "Create Alert"
+
+# 7. Retorna à aba List e valida que a badge de alerta não é mais exibida no card do Bitcoin
+- tapOn: "List"
+- assertVisible: "Cryptocurrencies"
+- assertNotVisible: "1 alert"

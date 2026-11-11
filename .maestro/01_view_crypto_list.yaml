@@ -1,0 +1,36 @@
+appId: ${APP_ID:-com.cryptoalert}
+---
+# Fluxo 1: Visualização da Lista de Criptomoedas e Rolagem
+# Valida a exibição da tela inicial, os cards das moedas principais e a rolagem até o final da lista.
+
+- launchApp
+
+# Garante que está na aba inicial
+- tapOn:
+    text: "List"
+    optional: true
+
+# 1. Verifica o cabeçalho principal
+- assertVisible: "Cryptocurrencies"
+
+# 2. Verifica a exibição das primeiras moedas no topo da lista
+- assertVisible: "Bitcoin"
+- assertVisible: "BTC"
+- assertVisible: "Ethereum"
+- assertVisible: "ETH"
+
+# 3. Executa rolagem para baixo para exibir moedas do fim da lista
+- scroll
+
+# 4. Verifica moedas que aparecem após o scroll
+- assertVisible:
+    text: "Dogecoin"
+    optional: true
+- assertVisible:
+    text: "Avalanche"
+    optional: true
+
+# 5. Rola de volta para o topo da lista
+- scroll:
+    direction: UP
+- assertVisible: "Bitcoin"

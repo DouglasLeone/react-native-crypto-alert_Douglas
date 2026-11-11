@@ -1,0 +1,46 @@
+appId: ${APP_ID:-com.cryptoalert}
+---
+# Fluxo 3: Cadastro de Novo Alerta de Preço
+# Valida a navegação até o formulário, preenchimento dos campos obrigatórios, seleção da condição e salvamento com sucesso.
+
+- launchApp
+
+# 1. Navega para a aba de Alertas
+- tapOn: "Alerts"
+
+# 2. Valida cabeçalho da tela de alertas
+- assertVisible: "Price Alerts"
+
+# 3. Toca no botão para criar novo alerta (topo ou empty state)
+- tapOn:
+    text: "New Alert"
+    optional: true
+- tapOn:
+    text: "Create Alert"
+    optional: true
+
+# 4. Valida a abertura da tela de criação
+- assertVisible: "Create Alert"
+- assertVisible: "Cryptocurrency"
+- assertVisible: "Target Price (USD)"
+- assertVisible: "Alert Condition"
+
+# 5. Seleciona a criptomoeda desejada (Bitcoin)
+- tapOn: "Select cryptocurrency"
+- tapOn: "Bitcoin"
+
+# 6. Preenche o preço alvo desejado
+- tapOn: "0.00"
+- inputText: "70000"
+
+# 7. Seleciona a condição de alta ("Above target price")
+- tapOn: "Above target price"
+
+# 8. Salva o alerta
+- tapOn: "Save Alert"
+
+# 9. Valida o redirecionamento para a listagem e os dados do alerta criado
+- assertVisible: "Price Alerts"
+- assertVisible: "Bitcoin"
+- assertVisible: "Alert when price goes above"
+- assertVisible: "$70,000.00"

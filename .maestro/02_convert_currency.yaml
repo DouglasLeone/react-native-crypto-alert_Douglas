@@ -1,0 +1,42 @@
+appId: ${APP_ID:-com.cryptoalert}
+---
+# Fluxo 2: Conversão de Moedas em Tempo Real
+# Valida a navegação para a aba Convert, inserção de quantidade, troca de cripto e moeda fiduciária e cálculo do resultado.
+
+- launchApp
+
+# 1. Navega para a aba de Conversão
+- tapOn: "Convert"
+
+# 2. Valida o título da tela e componentes iniciais
+- assertVisible: "Convert Crypto"
+- assertVisible: "Amount"
+- assertVisible: "Cryptocurrency"
+- assertVisible: "Fiat Currency"
+- assertVisible: "Converted Amount"
+- assertVisible: "Enter an amount"
+
+# 3. Insere a quantidade a ser convertida
+- tapOn: "0.00"
+- inputText: "2"
+
+# 4. Valida que a mensagem de placeholder foi substituída por um valor calculado
+- assertNotVisible: "Enter an amount"
+- assertNotVisible: "Invalid amount"
+
+# 5. Seleciona uma nova Criptomoeda no modal
+- tapOn:
+    text: "Bitcoin"
+- assertVisible: "Select"
+- tapOn: "Ethereum"
+
+# 6. Seleciona uma nova Moeda Fiduciária (BRL) no modal
+- tapOn:
+    text: "USD"
+- assertVisible: "Select"
+- tapOn: "BRL"
+
+# 7. Verifica que a conversão continua válida com o novo par de moedas
+- assertVisible: "Converted Amount"
+- assertNotVisible: "Invalid amount"
+- assertNotVisible: "Enter an amount"

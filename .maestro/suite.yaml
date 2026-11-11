@@ -1,0 +1,9 @@
+appId: ${APP_ID:-com.cryptoalert}
+---
+# Suíte Completa E2E do Crypto Alert
+# Executa todos os fluxos sequencialmente em um pipeline unificado.
+
+- runFlow: 01_view_crypto_list.yaml
+- runFlow: 02_convert_currency.yaml
+- runFlow: 03_create_price_alert.yaml
+- runFlow: 04_verify_and_delete_alert.yaml
